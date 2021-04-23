@@ -7,15 +7,20 @@ generateJoke();
 
 // using async await
 async function generateJoke() {
-	const config = {
-		headers: {
-			Accept: 'application/json',
-		},
-	};
-	const response = await fetch('https://icanhazdadjoke.com', config);
+	try {
+		const config = {
+			headers: {
+				Accept: 'application/json',
+			},
+		};
+		const response = await fetch('https://icanhazdadjoke.com', config);
 
-	const data = await response.json();
-	jokeEl.innerHTML = data.joke;
+		const data = await response.json();
+		jokeEl.innerHTML = data.joke;
+	} catch (error) {
+		console.error(error);
+		jokeEl.innerHTML = `Something went wrong. ${error.message}.`;
+	}
 }
 
 // Using .then
